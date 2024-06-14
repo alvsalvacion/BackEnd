@@ -54,7 +54,7 @@ class AuthController extends Controller
                 Auth::logout();
                 return response()->json(['error' => 'Please verify your email before logging in.'], 403);
             }
-            $token = $user->createToken('auth_token')->plainTextToken;
+            $token = $user->createToken($user->email)->plainTextToken;
             return response()->json(['user' => $user, 'token' => $token]);
         }
 
