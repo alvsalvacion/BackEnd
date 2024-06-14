@@ -8,6 +8,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+    Route::get('/currentUser', [AuthController::class, 'fetchCurrentUser']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 

@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        date_default_timezone_set('Asia/Manila');
+    }
     public function signup(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -122,5 +126,16 @@ class AuthController extends Controller
         $user = $request->User();
         $user->currentAccessToken()->delete();
         return response(['message' => 'Logout Successfully!']);
+    }
+
+    public function fetchCurrentUser(Request $request)
+    {
+        $user = $request->user();
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found.'], 404);
+        }
+
+        return response()->json($user);
     }
 }
